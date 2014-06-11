@@ -1,0 +1,12 @@
+* Crazy Idea:
+** HTTP server in Common Lisp
+** Part of an application (does only what it needs)
+** Full blown not-invented-here syndrome
+** 'ship in a bottle' project
+
+* Problems:
+** how to deploy to Heroku?!
+** how to stop this insanity!
+
+
+
