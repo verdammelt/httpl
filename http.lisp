@@ -1,7 +1,8 @@
 (require :sb-bsd-sockets)
 
 (defpackage :HTTPL
-  (:use :CL :sb-bsd-sockets))
+  (:use :CL :sb-bsd-sockets)
+  (:export :server))
 (in-package :HTTPL)
 
 (defun read-from-socket (socket)
@@ -11,8 +12,10 @@
      (subseq buffer 0 length))))
 
 (defun respond (socket response)
-  (let ((payload (concatenate 'string response '(#\Return #\Linefeed))))
-    (socket-send socket payload nil)))
+  (dolist (r (or (and (listp response) response)
+		 (list response)))
+    (socket-send socket r nil)
+    (socket-send socket (coerce '(#\Return #\Linefeed) 'string) nil)))
 
 (defun process-request (socket)
   (unwind-protect
@@ -28,4 +31,4 @@
 	   (socket-bind socket #(127 0 0 1) port)
 	   (socket-listen socket 5)
 	   (loop (process-request (socket-accept socket))))
-      (socket-close socket)))))
+      (socket-close socket))))
