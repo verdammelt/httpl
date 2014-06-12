@@ -8,5 +8,14 @@
 ** how to deploy to Heroku?!
 ** how to stop this insanity!
 
+* TODO:
+** write testing library
+** wrap socket calls (for stubbing ease)
+** parse request into parts
+** 404 errors
+** error handling (to allow for 500s)
+** routing
+
+
 
 
